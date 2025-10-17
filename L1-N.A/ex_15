@@ -1,0 +1,26 @@
+import numpy as np 
+import matplotlib.pyplot as plt
+
+n_pontos = int(input('Quantos pontos vão ser gerados?'))
+
+pontos_x = np.random.uniform(low=0, high=2, size=n_pontos)
+
+pontos_y = np.random.uniform(low=-2, high=1, size=n_pontos)
+
+plt.figure(figsize=(8,6))
+
+plt.scatter(pontos_x, pontos_y, s=10, alpha=0.7)
+
+plt.title('Pontos distribuidos aleatoriamente no gráfico')
+
+plt.xlabel('Eixo x')
+
+plt.ylabel('Eixo y')
+
+plt.xlim(0,2)
+
+plt.ylim(-2,1)
+
+plt.grid(True)
+
+plt.show()

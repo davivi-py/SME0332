@@ -1,0 +1,26 @@
+import numpy as np 
+import matplotlib.pyplot as plt
+
+pontos = np.loadtxt('coords.txt')
+
+print(np.shape(pontos))
+
+coordenadas_x = pontos[:, 0]
+
+coordenadas_y = pontos[:, 1]
+
+fig, ax = plt.subplots(figsize=(10,6))
+
+ax.scatter(coordenadas_x, coordenadas_y, color='red')
+ax.set_title('Pontos e polígonos')
+primeiro_x = coordenadas_x[0]
+
+x_fechado = np.append(coordenadas_x, primeiro_x)
+
+primeiro_y = coordenadas_y[0]
+
+y_fechado = np.append(coordenadas_y, primeiro_y)
+
+plt.plot(x_fechado,y_fechado, linestyle='-', color='blue')
+plt.grid(True)
+plt.show()

@@ -1,0 +1,27 @@
+import numpy as np
+
+pontos_2d = (np.random.rand(10,2)*4 - 2)
+
+pontos_fora = 0 
+
+pontos_dentro = 0
+
+
+for ponto in pontos_2d:
+
+    x = ponto[0]
+    y = ponto[1]
+
+    if x**2 + y**2 > 1:
+        
+        pontos_fora += 1
+        print('Ponto fora', (x,y))
+    
+
+    else:
+        pontos_dentro += 1
+        print ('Ponto dentro', (x,y))
+
+print('O número de pontos dentro é', pontos_dentro)
+print('\n')
+print('O número de pontos fora é', pontos_fora)

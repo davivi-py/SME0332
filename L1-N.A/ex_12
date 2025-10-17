@@ -1,0 +1,33 @@
+import numpy as np 
+
+import matplotlib.pyplot as plt
+
+def lançador_de_dado(n):
+
+    soma_total = []
+
+    for _ in range(n):
+
+        dados = np.random.randint(1,7,size=10)
+
+        soma_n = np.sum(dados)
+
+        soma_total.append(soma_n)
+        
+        
+    return soma_total
+    print(soma_total)
+
+somas = lançador_de_dado(10000)
+
+counts, bins = np.histogram(somas, 51)
+
+fig, ax = plt.subplot(10, 6)
+
+ax, stairs(counts, bins, fill=True, edgecolor='black', alpha=0.8)
+
+ax.set_title('Soma de 10 Dados')
+
+ax.set_xlabel('Jogadas')
+
+ax.set_ylabel('Somas')

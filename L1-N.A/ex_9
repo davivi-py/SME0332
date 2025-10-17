@@ -1,0 +1,18 @@
+import numpy as np 
+
+def media_matriz(N):
+
+    matriz = np.random.rand(N,N)
+
+    soma_total = 0.0 
+
+    for i in range(N):
+        for j in range(N):
+
+            soma_total = matriz[i, j]
+
+    med = soma_total / N * N
+
+    print('A média das componentes da matriz é', med)
+
+media_matriz(1000)

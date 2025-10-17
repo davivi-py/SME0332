@@ -1,0 +1,11 @@
+# Ignorar o ambiente virtual
+venv/
+
+# Ignorar caches do Python
+__pycache__/
+*.pyc
+
+# Ignorar arquivos de ambiente e temporários
+.env
+*.log# Created by venv; see https://docs.python.org/3/library/venv.html
+

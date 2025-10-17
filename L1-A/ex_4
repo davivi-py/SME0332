@@ -1,0 +1,48 @@
+import numpy as np 
+import matplotlib.pyplot as plt 
+
+
+def somador_pi(n):
+
+    t = 0.0
+
+    for i in range(n):
+
+        t += ((-1)**i) / (2*i+1)
+    
+    return(t)
+
+N = 999999
+
+pi_serie = 4*somador_pi(N)
+
+print('O valor de pi usando a série é', pi_serie)
+
+print('O valor de pi usando o Numpy é', np.pi)
+
+
+#erro no cálculo de pi (módulo de pi - pifunc(n))
+
+valores_n = [10, 100, 1000, 10000, 100000]
+
+erros_calculados = []
+
+for i in (valores_n):
+
+    pi_serie = somador_pi(i)
+
+    erro_pi = abs(np.pi - pi_serie)
+
+    erros_calculados.append(erro_pi)
+
+fig, ax = plt.subplots(figsize=(8,6))
+
+ax.plot(valores_n, erros_calculados, marker='o')
+plt.xlabel('Número de termos(N)')
+plt.ylabel('Erro absoluto')
+plt.title('Série de Leibniz para pi em função de n')
+plt.xscale('log')
+plt.yscale('log')
+plt.grid(True, which='both')
+
+plt.show()

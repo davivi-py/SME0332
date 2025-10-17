@@ -1,0 +1,13 @@
+import numpy as np 
+
+
+a = np.random.rand(3)
+b = np.random.rand(3)
+
+def produto_vetorial(a,b):
+
+    p_vetorial = np.cross(a, b)   
+    
+    print('O produto vetorial entre a e b é:', p_vetorial)
+
+produto_vetorial(a,b)

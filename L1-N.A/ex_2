@@ -1,0 +1,11 @@
+import numpy as np
+
+#O comando random.randn cria números a partir da distribuição normal padrão, envolve valores neg. /perguntar pro prof.
+arr1 = np.random.randn(2)*10
+
+if arr1[1] > 0:
+    print(True)
+else:
+    print(False)
+
+print(arr1)
