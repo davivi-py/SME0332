@@ -1,0 +1,20 @@
+import numpy as np
+
+def vet_rand(n):
+
+    vetor = np.random.rand(n)
+
+    soma_tot = 0.0
+
+    for i in range(len(vetor)):
+
+        soma_tot += vetor[i]
+
+    med = soma_tot / n
+
+    print(med)
+
+
+    
+
+vet_rand(10000000)

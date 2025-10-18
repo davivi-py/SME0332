@@ -1,0 +1,17 @@
+import numpy as np
+
+def somadorpoggers(n):
+
+     t = 0.0 
+     for i in range(n):
+
+        t += ((-1)**i) / ((2*i+1))
+    
+     print(np.pi)
+
+     print(t*4)
+
+
+
+
+somadorpoggers(120100)

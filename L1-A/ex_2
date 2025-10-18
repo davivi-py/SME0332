@@ -1,0 +1,68 @@
+import numpy as np  
+import time as time
+import matplotlib.pyplot as plt
+
+#operação manual
+
+
+def multiplicacao_matricial(mat_A, mat_B):
+
+    mat_C = np.zeros((mat_A.shape[0], mat_B.shape[1]))
+
+
+    for i in range(mat_A.shape[0]):
+        for j in range(mat_B.shape[1]):
+            valor_elem = 0
+            for k in range(mat_A.shape[1]):
+
+                valor_elem += mat_A[i,k]*mat_B[k,j]
+        
+
+            mat_C[i, j] = valor_elem
+    return mat_C
+
+
+tamanhos = [50,100,150,200,250]
+
+tempos_manuais = []
+
+tempos_numpy = []
+        
+    
+for n in tamanhos:
+
+    mat_A = np.random.rand(n,n)
+    mat_B = np.random.rand(n,n)
+
+    t0m = time.time()
+    multiplicacao_matricial(mat_A,mat_B)
+    t0f = time.time()
+
+    dm = t0f - t0m
+
+    tempos_manuais.append(dm)
+
+
+    t0np = time.time()
+    mat_A @ mat_B
+    t1np = time.time()
+
+    dnp = t1np - t0np 
+
+    tempos_numpy.append(dnp)
+
+fig, ax1 = plt.subplots(figsize=(8,6))
+
+ax1.plot(tamanhos, tempos_manuais, marker='o', linestyle='-', label= 'Manual')
+ax1.plot(tamanhos, tempos_numpy, marker='o', linestyle='-', label = 'Numpy')
+ax1.set_xlabel('Dimensão da matriz (N) [log]')
+ax1.set_ylabel('Tempos de processamento (s) [log]')
+ax1.set_title('Multiplicação de Matrizes: Na mão Vs. Numpy')
+ax1.set_xscale('log')
+ax1.set_yscale('log')
+ax1.legend()
+ax1.grid(True)
+
+
+
+plt.show()

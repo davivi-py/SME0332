@@ -1,0 +1,23 @@
+nomes = ['Julia', 'Mateus', 'João', 'Pedro']
+sobrenomes = ['Veras','Moura', 'Muller', 'Abrão']
+idades = [18,18,18,18]
+
+
+lista_amigos = []
+
+
+for i in range(len(nomes)): 
+    lista_gamer = [
+
+nomes[i] + ' ' + sobrenomes[i] + ' ' + str(idades[i])
+
+]
+
+lista_amigos.append(lista_gamer)
+    
+    
+
+print(lista_amigos)
+    
+
+

@@ -1,0 +1,90 @@
+import numpy as np 
+import matplotlib.pyplot as plt
+import time as time
+
+# combinacao linear de vetores
+
+
+n = [10**4, 10**5, 10**6, 10**7]
+
+tempos_vect = []
+
+tempos_mat = []
+
+n_2 = [500, 1000, 1500, 2000]
+
+valores_m = [2]
+
+for i in n:
+    
+    vetor_a = np.random.rand(i)
+    
+    vetor_b = np.random.rand(i)
+
+    alpha = np.random.rand()
+    beta = np.random.rand() 
+    
+    tempo_inicial = time.perf_counter()
+    c = vetor_a*alpha + vetor_b*beta
+    tempo_final = time.perf_counter()
+
+    duracao_vet = tempo_final - tempo_inicial
+
+    tempos_vect.append(duracao_vet)
+
+# potenciacao de MSTRIZES
+
+
+for i in n_2:
+     
+    A = np.random.rand(i, i)
+
+    for m in valores_m:
+        
+        t0 = time.perf_counter()
+
+        potencia_atual = A
+
+        for _ in range(m-1):
+
+            potencia_atual = potencia_atual @ A
+        t1 = time.perf_counter()
+
+        duracao_mat = t1 - t0 
+        
+        tempos_mat.append(duracao_mat)  
+        
+
+# gráfico pra vetores    
+fig_vet, axes_vet= plt.subplots(1, 2, figsize=(12, 5)) 
+
+axes_vet[0].plot(n, tempos_vect, marker='o', linestyle='-')
+axes_vet[0].set_title('Combinacao linear de vetores', fontsize=12)
+axes_vet[0].set_xlabel('Dimensão do vetor(n)', fontsize=12)
+axes_vet[0].set_ylabel('Tempo (em segundos)', fontsize=12)
+axes_vet[0].grid(True)
+
+axes_vet[1].loglog(n, tempos_vect, marker='o', linestyle='-')
+axes_vet[1].set_title('Combinação linear de vetores (escala log-log)', fontsize=12)
+axes_vet[1].set_xlabel('Dimensão do vetor(n)', fontsize=12)
+axes_vet[1].set_ylabel('Tempo de processamento (em segundos)', fontsize=12)
+axes_vet[1].grid(True)
+
+plt.show()
+#gráfico pra matrizes
+
+fig_mat, axes_mat = plt.subplots(1, 2, figsize=(12, 5))
+
+axes_mat[0].plot (n_2,tempos_mat, marker='o', linestyle='-')
+axes_mat[0].set_title('Potenciação Matricial', fontsize=12)
+axes_mat[0].set_xlabel('Dimensão da matriz', fontsize=12)
+axes_mat[0].set_ylabel('Tempo de processamento (em segundos)', fontsize=12)
+axes_mat[0].grid(True)
+
+axes_mat[1].loglog(n_2,tempos_mat, marker='o', linestyle='-')
+axes_mat[1].set_title('Potenciação Matricial (escala log-log)', fontsize=12)
+axes_mat[1].set_xlabel('Dimensão da matriz(n)', fontsize=12)
+axes_mat[1].set_ylabel('Tempo de processamento (em segundos)', fontsize=12)
+axes_mat[1].grid(True)
+
+plt.show()

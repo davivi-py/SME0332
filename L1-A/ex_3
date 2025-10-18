@@ -1,0 +1,38 @@
+import numpy as np 
+import matplotlib.pyplot as plt 
+
+pontos = np.random.rand(2000, 2)
+
+pontos_dentro = []
+
+for ponto in pontos:
+
+    x = ponto[0]
+    y = ponto[1]
+
+    if x + y <= 1:
+
+        pontos_dentro.append(ponto)
+if len(pontos_dentro) > 0:
+
+    pontos_np = np.array(pontos_dentro)
+ 
+    coord_x = pontos_np[:, 0]
+    coord_y = pontos_np[:, 1]
+
+    fig, ax = plt.subplots(figsize=(7,7))
+
+    ax.scatter(coord_x,coord_y, s=10, alpha=0.6)
+
+    ax.set_title(f'Pontos Aleatórios Dentro da Área demarcada')
+    ax.set_xlabel('Eixo X')
+    ax.set_ylabel('Eixo Y')
+    ax.grid(True)
+
+    plt.show()
+
+else:
+
+    print('Não foram encontrado pontos dentro deste intervalo')
+
+     

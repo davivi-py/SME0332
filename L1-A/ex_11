@@ -1,0 +1,50 @@
+import numpy as np 
+import matplotlib.pyplot as plt
+
+def caminho_aleatório(num_passos):
+
+    numero_de_passos = 1000
+
+    delta = 1
+
+    x, y = 0, 0
+
+    caminho_x = [x]
+    caminho_y = [y]
+
+    for i in range(numero_de_passos):
+
+        dir = np.random.randint(4)
+
+        if dir == 0:
+            y += delta
+        elif dir == 1:
+            y -= delta
+        elif dir == 2:
+            x += delta
+        else:
+            x -= delta
+        
+        caminho_x.append(x)
+        caminho_y.append(y)
+    
+    return caminho_x, caminho_y
+    
+
+
+fig, ax = plt.subplots(figsize=(10, 10))
+num_traj = 8
+   
+for i in range(num_traj):
+
+    x_traj, y_traj = caminho_aleatório(1000)
+
+    ax.plot(x_traj, y_traj, alpha=0.8, label=f'Partícula')
+
+ax.set_title('Trajetórias de um Caminho Aleatório')
+ax.set_xlabel('Posição X')
+ax.set_ylabel('Posição Y')
+ax.grid(True, linestyle=':')
+ax.legend()
+ax.set_aspect('equal', adjustable='box')    
+plt.show()

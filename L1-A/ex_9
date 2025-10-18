@@ -1,0 +1,29 @@
+
+def comparador_stringal(str1, str2):
+
+
+    tamanho_1 = len(str1)
+    tamanho_2 = len(str2)
+
+    caracteres_iguais=0
+
+# min() -> compara dois args e determina um tamanho limite de indexação do laço
+    limite = min(tamanho_1, tamanho_2)
+
+    for i in range(limite):
+      
+        if str1[i] == str2[i]:
+
+            caracteres_iguais += 1
+
+    return(tamanho_1, tamanho_2, caracteres_iguais)
+        
+
+str1 = input('Digite uma palavra: ')
+str2 = input('Digite outra palavra: ')
+
+tam1, tam2, iguais = comparador_stringal(str1,str2)
+
+print('O tamanho da string 1 é:',tam1)
+print('O tamanho da string 2 é:', tam2)
+print('Essas palavras tem',iguais,'caracteres iguais!')

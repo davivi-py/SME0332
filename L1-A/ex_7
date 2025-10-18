@@ -1,0 +1,35 @@
+import numpy as np 
+import matplotlib.pyplot as plt 
+
+def sequencia_n(a, x0, N):
+
+    sequencia = np.zeros(N+1)
+    sequencia[0] = x0 
+
+    for i in range(1, N+1):
+
+        valor_anterior = sequencia[i-1]
+
+        sequencia[i] = a*valor_anterior*(1-valor_anterior)
+    
+    return sequencia 
+
+valores_a = np.linspace(2.5, 4.0, 2000)
+
+x0 = 0.1
+N_total = 1000
+N_finais = 200
+
+fig, ax = plt.subplots(figsize=(12,8))
+
+for a in valores_a:
+
+    sequencia_final = sequencia_n(a=a, x0=x0, N=N_total)
+
+    pontos_finais = sequencia_final[-N_finais:]
+
+    eixo_x = np.full(len(pontos_finais), a)
+
+    ax.scatter(eixo_x, pontos_finais, s=0.01, color='black')
+
+plt.show()

@@ -1,0 +1,27 @@
+import matplotlib.pyplot as plt 
+import numpy as np 
+
+x = np.linspace (0, 2*np.pi, 100)
+
+valores_m = [0.5, 1, 1.5, 2, 4]
+
+fig = plt.figure(figsize=(16,6))
+
+ax = fig.add_subplot(1, 1, 1)
+
+for m in valores_m:
+
+    y = np.sin(m*x)
+
+    ax.plot(x, y, label=f'$y = sin({m}x)')
+
+
+ax.set_title('Função senoidal', fontsize=12)
+ax.set_xlabel('Eixo x', fontsize=12)
+ax.set_ylabel('Eixo y', fontsize=12)
+ax.grid(True, linestyle='--')
+ax.axhline(0, color='black', linewidth=0.5)
+ax.legend()
+
+
+plt.show()

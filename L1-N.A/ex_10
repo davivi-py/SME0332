@@ -1,0 +1,31 @@
+import numpy as np 
+
+
+def calculador(dim=3):
+   
+   a = np.random.rand(3) 
+   b = np.random.rand(3)
+   
+   print('Vetor a:', a)
+
+   print('Vetor b:', b)
+
+
+   prod_escalar = a @ b
+   
+   norma_a = np.sqrt(a @ a)
+   norma_b = np.sqrt(b @ b)
+
+   if norma_b == 0 or norma_a == 0:
+      
+      print('A norma de um dos vetores é 0...')
+      return
+   
+   ang = np.arccos(prod_escalar / (norma_a*norma_b))
+   angulo_graus = np.degrees(ang)
+
+
+   print('O ângulo entre os vetores a e b é:', angulo_graus)
+
+
+calculador(dim=3)

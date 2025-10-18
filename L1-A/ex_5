@@ -1,0 +1,61 @@
+import numpy as np 
+
+valores_a = [1, 2, 3.2, 3.5, 4]
+
+def sequencia_n(a, x0, N):
+
+    sequencia = np.zeros(N+1)
+
+    sequencia[0] = x0 
+
+    for i in range(1, N+1):
+
+        valor_anterior = sequencia[i-1]
+
+        sequencia[i] = a*valor_anterior*(1-valor_anterior)
+    
+    return sequencia 
+
+def media_manual(sequencia):
+
+    soma = 0.0
+
+    for i in range(len(sequencia)):
+
+        soma += sequencia[i]
+
+    media = soma/(len(sequencia))
+
+    return media 
+
+tests = sequencia_n(a=2, x0=0.1, N=4000)
+
+
+def varianca(sequencia, media):
+
+
+    soma_quad = 0.0
+
+    for i in range(len(sequencia)):
+
+        sub = (sequencia[i]-media)**2
+
+        soma_quad += sub
+
+    var = soma_quad / (len(sequencia)-1)
+
+    return var
+
+
+
+seq5000 = sequencia_n(1, 0.1, 5000)
+
+media = media_manual(seq5000)
+
+print('A média manual da sequência é', media_manual(seq5000))
+
+print('A média Numpy da sequência é', np.mean(seq5000))
+
+print('A variância manual da sequência é', varianca(seq5000, media))
+
+print('A variância Numpy é', np.var(seq5000))

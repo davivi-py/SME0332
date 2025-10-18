@@ -1,0 +1,35 @@
+import numpy as np 
+import matplotlib.pyplot as plt 
+
+def lançamento_obq(angulo, velocidade_inicial):
+
+    g = 9.81
+
+    angulo_rad = np.radians(angulo)
+
+    tempo_voo = 2 * velocidade_inicial * np.sin(angulo_rad) / g
+
+    t = np.linspace(0,tempo_voo, 200)
+
+    x_t = (velocidade_inicial*np.cos(angulo_rad)*t)
+
+    y_t = (velocidade_inicial*np.sin(angulo_rad)*t)-(0.5*g*t**2)
+
+    return x_t, y_t
+
+
+fig, ax = plt.subplots(figsize=(10,6))
+
+v_arb = 100 #m/s
+ang_arb = 89 #graus
+
+x_traj, y_traj = lançamento_obq(ang_arb, v_arb)
+
+ax.plot(x_traj,y_traj, label=f'{ang_arb}(em graus)', linestyle='--')
+ax.set_xlabel('Deslocamento em x')
+ax.set_aspect('equal', adjustable= 'box')
+ax.set_ylabel('Deslocamento em Y')
+ax.set_title('Trajetória parabólica: Lançamento Oblíquo')
+ax.grid(True)
+ax.legend()
+plt.show()
