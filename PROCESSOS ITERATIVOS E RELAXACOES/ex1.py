@@ -11,11 +11,12 @@ seq[1] = 2
 
 def fibonaccia(n):
 
-    seq[n] = seq[n-1] + seq[n-2]
+    seq[n] = seq[n - 1] + seq[n - 2]
 
     return seq[n]
-for i in range(2,n):
 
+
+for i in range(2, n):
 
     fibonaccia(i)
 
