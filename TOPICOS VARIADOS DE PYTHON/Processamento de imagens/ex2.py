@@ -1,44 +1,46 @@
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import numpy as np
+import random
+
+caminho = r"C:\Users\User\Desktop\SME0332\TOPICOS VARIADOS DE PYTHON\Processamento de imagens\stinkbug.png"
+
+img = mpimg.imread(caminho)
+
+if len(img.shape) > 2:  # aqui a gente garante que a imagem é 2D
+    img_cinza = img[:, :, 0]
+else:
+    img_cinza = img
 
 
-def adicionar_manchas(A, num_manchas=10, raio=20):
-    B = A.copy()
-    altura, largura = B.shape
+def manchador(img, num_manchas=20):
 
-    for _ in range(num_manchas):
-        cx = np.random.randint(raio, largura - raio)
-        cy = np.random.randint(raio, altura - raio)
-        cor = np.random.choice([0.0, 1.0])
+    img_new = np.copy(img)
 
-        for i in range(cy - raio, cy + raio):
-            for j in range(cx - raio, cx + raio):
-                if (i - cy)**2 + (j - cx)**2 <= raio**2:
-                    B[i, j] = cor
+    h, w = img_new.shape
 
-    return B
+    for i in range(num_manchas):
+        cx = random.randint(0, w)
+        cy = random.randint(0, h)
+        raio = random.randint(5, 20)
+        cor = random.choice([0.0, 1.0])
 
+        y_min = max(0, cy - raio)
+        y_max = min(h, cy + raio)
+        x_min = max(0, cx - raio)
+        x_max = min(w, cx + raio)
 
-def main():
-    img = mpimg.imread('stinkbug.png')
-    A = img[:, :, 0]
+        for y in range(y_min, y_max):
+            for x in range(x_min, x_max):
+                distancia_sq = (x - cx) ** 2 + (y - cy) ** 2
 
-    B = adicionar_manchas(A, num_manchas=15, raio=25)
-
-    fig, axes = plt.subplots(1, 2, figsize=(10, 5))
-
-    axes[0].imshow(A, cmap='gray')
-    axes[0].set_title('Original')
-    axes[0].axis('off')
-
-    axes[1].imshow(B, cmap='gray')
-    axes[1].set_title('Com manchas')
-    axes[1].axis('off')
-
-    plt.tight_layout()
-    plt.show()
+                if distancia_sq <= raio**2:
+                    img_new[y, x] = cor
+    return img_new
 
 
-if __name__ == "__main__":
-    main()
+dirty_work = manchador(img_cinza, num_manchas=30)
+
+plt.imshow(dirty_work, cmap="gray")
+plt.title("Stinkbug sujo de bolinhas")
+plt.show()
