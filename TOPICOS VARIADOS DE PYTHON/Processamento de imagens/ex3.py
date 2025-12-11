@@ -1,89 +1,85 @@
 import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
 import numpy as np
 
 
-def suaviza_cruz(A):
-    m, n = A.shape
-    B = np.zeros_like(A)
+def suaviza_cruz(matriz):
 
-    for i in range(m):
-        for j in range(n):
-            soma = A[i, j]
-            count = 1
+    linhas, cols = matriz.shape
+    matriz_new = matriz.copy()
 
-            if i > 0:
-                soma += A[i-1, j]
-                count += 1
-            if i < m - 1:
-                soma += A[i+1, j]
-                count += 1
-            if j > 0:
-                soma += A[i, j-1]
-                count += 1
-            if j < n - 1:
-                soma += A[i, j+1]
-                count += 1
+    for i in range(1, linhas - 1):
+        for j in range(1, cols - 1):
 
-            B[i, j] = soma / count
+            soma = (
+                matriz[i, j]
+                + matriz[i - 1, j]
+                + matriz[i + 1, j]
+                + matriz[i, j - 1]
+                + matriz[i, j + 1]
+            )
 
-    return B
+            matriz_new[i, j] = soma / 5.0
 
+    return matriz_new
 
-def suaviza_completo(A):
-    m, n = A.shape
-    B = np.zeros_like(A)
+def suaviza_3x3(matriz):
 
-    for i in range(m):
-        for j in range(n):
-            soma = 0.0
-            count = 0
+    linhas,cols = matriz.shape
+    matriz_new = matriz.copy()
 
-            for di in [-1, 0, 1]:
-                for dj in [-1, 0, 1]:
-                    ni, nj = i + di, j + dj
-                    if 0 <= ni < m and 0 <= nj < n:
-                        soma += A[ni, nj]
-                        count += 1
+    for i in range(1, linhas-1):
+        for j in range(1, cols-1):
 
-            B[i, j] = soma / count
+            soma = (
+                matriz[i,j]
+                + matriz[i - 1, j]
+                + matriz[i + 1, j]
+                + matriz[i, j - 1]
+                + matriz[i, j + 1]
+                + matriz[i-1, j-1]
+                + matriz[i-1, j+1]
+                + matriz[i+1, j-1]
+                + matriz[i+1, j+1]
+            )
 
-    return B
+            matriz_new[i, j] = soma / 9.0
 
 
-def main():
-    img = mpimg.imread('stinkbug.png')
-    A = img[:, :, 0]
-
-    num_aplicacoes = 5
-    resultados_cruz = [A]
-    resultados_completo = [A]
-
-    temp_cruz = A.copy()
-    temp_completo = A.copy()
-
-    for _ in range(num_aplicacoes):
-        temp_cruz = suaviza_cruz(temp_cruz)
-        resultados_cruz.append(temp_cruz.copy())
-
-        temp_completo = suaviza_completo(temp_completo)
-        resultados_completo.append(temp_completo.copy())
-
-    fig, axes = plt.subplots(2, num_aplicacoes + 1, figsize=(15, 6))
-
-    for idx, img_res in enumerate(resultados_cruz):
-        axes[0, idx].imshow(img_res, cmap='gray')
-        axes[0, idx].set_title(f'Cruz - {idx}x')
-        axes[0, idx].axis('off')
-
-    for idx, img_res in enumerate(resultados_completo):
-        axes[1, idx].imshow(img_res, cmap='gray')
-        axes[1, idx].set_title(f'Completo - {idx}x')
-        axes[1, idx].axis('off')
-
-    plt.tight_layout()
-    plt.show()
+    return matriz_new
 
 
-if __name__ == "__main__":
-    main()
+img_aleatória = np.zeros((100,100))
+img_aleatória[30:70, 30:70] = 1.0
+img_aleatória += np.random.normal(0, 0.1, (100,100))
+
+img_cruz = img_aleatória.copy()
+
+n = 8
+
+for _ in range(n+1):
+    img_cruz = suaviza_cruz(img_cruz)
+
+img_3x3 = img_aleatória.copy()
+for _ in range(n+1):
+    img_3x3 = suaviza_3x3(img_3x3)
+
+
+plt.figure(figsize=(10,8))
+
+plt.subplot(2,2,1)
+plt.imshow(img_aleatória, cmap="gray")
+plt.title('Imagem Original')
+plt.axis("off")
+
+plt.subplot(2,2,2)
+plt.imshow(img_cruz, cmap="gray")
+plt.title('Suavização em cruz')
+plt.axis('off')
+
+plt.subplot(2,2,4)
+plt.imshow(img_3x3, cmap='gray')
+plt.title('Método 3x3')
+plt.axis('off')
+
+plt.tight_layout(pad=3.0)
+plt.show()

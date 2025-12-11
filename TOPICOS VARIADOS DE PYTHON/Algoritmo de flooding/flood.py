@@ -1,51 +1,75 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
+from matplotlib.colors import ListedColormap
+
+
+def init_sim(n, k):
+
+    grid = np.zeros((n, n))
+
+    for _ in range(k):
+
+        x = np.random.randint(0, n)
+        y = np.random.randint(0, n)
+
+        grid[x, y] = 2
+
+    center = n // 2
+    grid[center, center] = 1
+
+    return grid
+
+
+def update(grid):
+
+    n = grid.shape[0]
+
+    grid_new = grid.copy()
+
+    for i in range(n):
+        for j in range(n):
+
+            if grid[i, j] == 1:
+                    # dir
+                if j < n - 1 and grid[i, j + 1] == 0:
+                    grid_new[i, j + 1] = 1
+                    # esq
+                if j > 0 and grid[i, j - 1] == 0:
+                    grid_new[i, j - 1] = 1
+                    # baixo
+                if i < n - 1 and grid[i + 1, j] == 0:
+                    grid_new[i + 1, j] = 1
+                    # cima
+                if i > 0 and grid[i - 1, j] == 0:
+                    grid_new[i - 1, j] = 1
+
+    return grid_new
+
 
 N = 50
+Obstaculos = 400
+grid = init_sim(N, Obstaculos)
 
-grade = np.zeros((N, N))
+cmap = ListedColormap(["white", "deepskyblue", "black"])
 
-centro = N // 2
-grade[centro, centro] = 1
-
-num_obstaculos = 100
-for i in range(num_obstaculos):
-    x = np.random.randint(0, N)
-    y = np.random.randint(0, N)
-    grade[x, y] = 2
-
-grade[centro, centro] = 1
+fig, ax = plt.subplots(figsize=(6, 6))
+ax.set_title("Flooding Simulation")
 
 
-def update(frame):
-    global grade
-    
-    nova_grade = grade.copy()
-    
-    for i in range(N):
-        for j in range(N):
-            if grade[i, j] == 1:
-                if i > 0 and grade[i-1, j] == 0:
-                    nova_grade[i-1, j] = 1
-                if i < N-1 and grade[i+1, j] == 0:
-                    nova_grade[i+1, j] = 1
-                if j > 0 and grade[i, j-1] == 0:
-                    nova_grade[i, j-1] = 1
-                if j < N-1 and grade[i, j+1] == 0:
-                    nova_grade[i, j+1] = 1
-    
-    grade = nova_grade
-    
-    img.set_data(grade)
+img = ax.imshow(grid, cmap=cmap)
+
+
+def animate(frame):
+
+    global grid
+
+    grid = update(grid)
+
+    img.set_data(grid)
     return [img]
 
 
-fig, ax = plt.subplots(figsize=(8, 8))
-img = ax.imshow(grade, cmap='Blues', vmin=0, vmax=2)
-ax.set_title('Algoritmo de Flooding')
-ax.axis('off')
-
-anim = FuncAnimation(fig, update, frames=200, interval=50, blit=True)
-
+ani = FuncAnimation(fig, animate, frames=200, interval=50, blit=True)
+plt.grid(True)
 plt.show()

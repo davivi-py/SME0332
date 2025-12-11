@@ -2,38 +2,28 @@ import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import numpy as np
 
+path = r"C:\Users\User\Desktop\SME0332\TOPICOS VARIADOS DE PYTHON\Processamento de imagens\concrete.jpg"
+img = mpimg.imread(path)
 
-def main():
-    img = mpimg.imread('concrete.jpg')
-    A = img[:, :, 0]
+taman = img.shape
 
-    print(f"Dimensões da imagem: {A.shape}")
+print(taman)
 
-    y_inicio, y_fim = 50, 300
-    x_inicio, x_fim = 50, 300
-    recortada = A[y_inicio:y_fim, x_inicio:x_fim]
+A = img[:, :, 0]
 
-    A_norm = recortada / recortada.max()
+crop = A[38:353, 113:443]
 
-    limiares = [0.3, 0.4, 0.5, 0.6, 0.7]
+normalizada = crop / 255.0
 
-    fig, axes = plt.subplots(2, len(limiares), figsize=(15, 6))
+limiar = 0.35
 
-    for idx, limiar in enumerate(limiares):
-        img_bin = (A_norm < limiar) * 1.0
-        fracao = np.mean(img_bin)
+img_bin = (normalizada < limiar)
 
-        axes[0, idx].imshow(A_norm, cmap='gray')
-        axes[0, idx].set_title(f'Original recortada')
-        axes[0, idx].axis('off')
+num_agregados = np.sum(img_bin)
 
-        axes[1, idx].imshow(img_bin, cmap='gray')
-        axes[1, idx].set_title(f'Limiar={limiar}\nFração={fracao:.3f}')
-        axes[1, idx].axis('off')
+fracao_agreg = num_agregados / img_bin.size
 
-    plt.tight_layout()
-    plt.show()
+print(f'A fração de agregados na imagem é de: {fracao_agreg}')
 
-
-if __name__ == "__main__":
-    main()
+plt.imshow(crop, cmap="gray")
+plt.show()
