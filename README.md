@@ -1,66 +1,77 @@
-# SME0332 — Scientific Computing with Python
+# SME0332 — Computação Científica com Python
 
-Projects and exercises from the **SME0332** course at ICMC-USP, covering numerical methods, simulations, algorithms, and image processing using Python.
+Projetos e exercícios da disciplina **SME0332** (ICMC-USP), cobrindo métodos numéricos, simulações, algoritmos e processamento de imagens em Python.
 
 **Stack:** Python · NumPy · Matplotlib · SciPy
 
 ---
 
-## Structure
+## Estrutura
 
 ```
-├── numerical-methods/    # Iterative solvers, Monte Carlo, integration
-├── simulations/          # Physical system simulations
-├── algorithms/           # Sorting benchmarks, function visualization
-└── image-processing/     # Filters, segmentation, noise
+├── numerical-methods/    # Solvers iterativos, Monte Carlo, integração
+├── simulations/          # Simulações de sistemas físicos
+├── algorithms/           # Benchmarks de ordenação, visualização de funções
+└── image-processing/     # Filtros, segmentação, ruído
 ```
 
 ---
 
-## Highlights
+## Destaques
 
-### 🔵 N-Body Simulation — Velocity Verlet integrator
+### 🔵 Simulação de N-corpos — Integrador Velocity Verlet
+
 [`simulations/nbody_simulation.py`](simulations/nbody_simulation.py)
 
-Simulates a two-body gravitational system using the Velocity Verlet algorithm. Tracks position and velocity over time, saves simulation data to file, and plots orbital trajectories alongside total kinetic energy evolution. Tested across five different mass ratios.
+Simula um sistema gravitacional de dois corpos usando o algoritmo Velocity Verlet. Rastreia posição e velocidade ao longo do tempo, salva os dados da simulação em arquivo, e plota as trajetórias orbitais junto com a evolução da energia cinética total. Testado em cinco proporções de massa diferentes.
 
-### 🔵 Rope Under Gravity — Jacobi & Gauss-Seidel solvers
+### 🔵 Corda sob gravidade — Solvers de Jacobi e Gauss-Seidel
+
 [`simulations/rope_simulation.py`](simulations/rope_simulation.py)
 
-Models the equilibrium shape of a rope with variable linear density under gravity. Solves the resulting tridiagonal system using both Jacobi and Gauss-Seidel iterative methods, comparing convergence across grid refinements (N = 10, 20, 40, 80).
+Modela a forma de equilíbrio de uma corda com densidade linear variável sob gravidade. Resolve o sistema tridiagonal resultante usando os métodos iterativos de Jacobi e Gauss-Seidel, comparando a convergência entre diferentes refinamentos de grade (N = 10, 20, 40, 80).
 
-### 🔵 Flood Fill Animation
+### 🔵 Animação de Flood Fill
+
 [`simulations/flood_fill.py`](simulations/flood_fill.py)
 
-Animated BFS-style flood fill on a 2D grid with randomly placed obstacles. Built with `matplotlib.animation.FuncAnimation`.
+Flood fill animado (estilo BFS) em uma grade 2D com obstáculos posicionados aleatoriamente. Construído com `matplotlib.animation.FuncAnimation`.
 
-### 🔵 Monte Carlo Methods
+### 🔵 Métodos de Monte Carlo
+
 [`numerical-methods/monte_carlo_area.py`](numerical-methods/monte_carlo_area.py) · [`numerical-methods/monte_carlo_3d.py`](numerical-methods/monte_carlo_3d.py)
 
-Area estimation between two curves using Monte Carlo sampling. 3D variant estimates π by sampling points inside a unit sphere.
+Estimativa de área entre duas curvas usando amostragem Monte Carlo. A variante 3D estima π amostrando pontos dentro de uma esfera unitária.
 
-### 🔵 Sorting Algorithm Benchmark
+### 🔵 Benchmark de Algoritmos de Ordenação
+
 [`algorithms/sorting_benchmark.py`](algorithms/sorting_benchmark.py)
 
-Empirical runtime comparison of Bubble Sort, Selection Sort, and Quick Sort across array sizes [100, 1600]. Results plotted on log-log scale to confirm O(n²) vs O(n log n) complexity.
+Comparação empírica de tempo de execução entre Bubble Sort, Selection Sort e Quick Sort, para tamanhos de array entre 100 e 1600. Resultados plotados em escala log-log para confirmar a complexidade O(n²) vs O(n log n).
 
-### 🔵 Jacobi Iterative Solver
+### 🔵 Solver Iterativo de Jacobi
+
 [`numerical-methods/jacobi_general.py`](numerical-methods/jacobi_general.py)
 
-General n×n Jacobi solver for diagonally dominant linear systems. Separate 2×2 implementation tracks convergence rate as a function of tolerance (ε from 10⁻² to 10⁻⁸).
+Solver de Jacobi genérico n×n para sistemas lineares diagonalmente dominantes. Uma implementação separada 2×2 rastreia a taxa de convergência em função da tolerância (ε de 10⁻² a 10⁻⁸).
 
-### 🔵 Image Processing
+### 🔵 Processamento de Imagens
+
 [`image-processing/`](image-processing/)
 
-Manual implementation of cross-shaped and 3×3 kernel smoothing filters. Binary segmentation via thresholding for aggregate fraction detection in grayscale images.
+Implementação manual de filtros de suavização com kernel em cruz e 3×3. Segmentação binária via limiarização para detecção de fração de agregados em imagens em tons de cinza.
 
 ---
 
-## Running
+## Executando
 
-```bash
+```
 pip install numpy matplotlib scipy
 python simulations/nbody_simulation.py
 ```
 
-Each script is self-contained and can be run independently.
+Cada script é independente e pode ser executado separadamente.
+
+---
+
+*Repositório desenvolvido durante a disciplina SME0332 (Fundamentos de Programação de Computadores com Aplicações em Python para Física e Bioinformática), ICMC-USP, 2025.*
